@@ -9,26 +9,44 @@ class Line
   end
 
   def join(person)
+    members.push(person)
   end
 
   def leave(person)
+    members.delete(person)
   end
 
   def front
+    members.first
   end
 
   def middle
+    # This method -could- return the middle 2 people for even length arrays, but
+    # currently just returns the (n/2) indexed person.
+    #
+    # Such as an array of 4 people will return the 2nd person.  An array of 5
+    # people will return the 3rd person ( (5+1)/2 ).
+
+    mid = if members.length.even?
+            (members.length / 2)
+          else
+            (members.length + 1 / 2)
+          end
+    members[mid]
   end
 
   def back
+    members.last
   end
 
   def search(person)
+    members[index(person)] if index(person)
   end
 
   private
 
   def index(person)
+    members.index(person)
   end
 
 end
