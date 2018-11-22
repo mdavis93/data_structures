@@ -1,4 +1,4 @@
-###Explain why doubling the size of the underlying array of your HashClass may be a poor idea.
+### Explain why doubling the size of the underlying array of your HashClass may be a poor idea.
 
 Doubling the size of the underlying array in the `HashClass` can be a poor idea due to it's exponentially increasing memory cost, and exponentially increasing time factor.  A single `HashClass` that initializes with a size of `6` will reserve six addresses for the arrays.  Upon resizing, assuming a double on each growth, this can quickly become a beast in very little time.  After resizing 7 times, we're up to over 750 addresses that are encased into our class.  This is in addition to the performance hit we will experience with each cumulative resize.
 
