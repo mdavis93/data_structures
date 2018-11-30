@@ -54,6 +54,10 @@ RSpec.describe OpenAddressing, type: Class do
       expect(star_wars_movies["Star Wars: The Empire Strikes Back"]).to eq "Number Five"
       expect(star_wars_movies["Star Wars: Return of the Jedi"]).to eq "Number Six"
     end
+
+    it "will throw an error if key is not found" do
+      expect{star_wars_movies["No More Star Wars!"]}.to raise_error(KeyError)
+    end
   end
 
   describe "#next_open_index" do
