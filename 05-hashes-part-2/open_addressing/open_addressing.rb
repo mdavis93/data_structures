@@ -16,9 +16,6 @@ class OpenAddressing
   end
 
   def [](key)
-    # TODO: Handle invalid Key lookups
-    # throw ArgumentError `The provided {Key} is not valid.` unless @items[index(key, size)]
-
     key = key.is_a?(Node) ? key.key : key
     index = index(key, size)
 
@@ -56,13 +53,14 @@ class OpenAddressing
   end
 
   def print
-    null_count = 0
-    puts "\n\n-----CONTENTS (#{@items.size})-----"
+    puts "\n\n-----CONTENTS-----"
+    puts "--Element Count: #{size}"
+    puts "--Load Factor: #{load_factor}"
+    puts '--'
     @items.each_with_index do |i, x|
-      null_count += 1 if i.nil?
-      puts "#{x}: #{i.key}: #{i.value}" unless i.nil?
+      puts "-- #{x} => nil" if i.nil?
+      puts "-- #{x} => #{i.key}: #{i.value}" unless i.nil?
     end
-    puts "null: #{null_count}" unless null_count.zero?
     puts "----------END----------\n"
   end
 
@@ -79,5 +77,13 @@ class OpenAddressing
       end
       @items[i] = item
     end
+  end
+
+  def load_factor
+    total_elements = 0
+    @items.each do |e|
+      total_elements += 1 unless e.nil?
+    end
+    total_elements.to_f / size
   end
 end

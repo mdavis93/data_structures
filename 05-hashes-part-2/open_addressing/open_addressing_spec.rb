@@ -56,7 +56,7 @@ RSpec.describe OpenAddressing, type: Class do
     end
 
     it "will throw an error if key is not found" do
-      expect{star_wars_movies["No More Star Wars!"]}.to raise_error(KeyError)
+      expect { star_wars_movies["No More Star Wars!"] }.to raise_error(KeyError)
     end
   end
 
