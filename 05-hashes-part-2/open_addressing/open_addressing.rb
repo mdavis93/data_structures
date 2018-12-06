@@ -8,23 +8,24 @@ class OpenAddressing
   def []=(key, value)
     value = Node.new(key, value) unless value.is_a?(Node)
     i = next_open_index(index(key, size))
-    while i == -1
-      resize
-      i = next_open_index(index(key, size))
+    if @items[i] && @items[i].key == key
+      @items[i] = value
+    else
+      while i == -1
+        resize
+        i = next_open_index(index(key, size))
+      end
     end
     @items[i] = value
   end
 
   def [](key)
-    key = key.is_a?(Node) ? key.key : key
     index = index(key, size)
-
-    while @items[index].nil? || @items[index].key != key
-      raise KeyError, "KeyError: Key Not Found - '#{key}'" if index > size - 1
+    until @items[index].nil?
+      break if @items[index].key == key
       index += 1
     end
-
-    @items[index].value
+    @items[index] ? @items[index].value : nil
   end
 
   # Returns a unique, deterministically reproducible index into an array

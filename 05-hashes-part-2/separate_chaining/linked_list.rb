@@ -66,7 +66,10 @@ class LinkedList
 
   end
 
-  # This method removes and returns the first node in the Linked List and must set Linked List's head to the second node.
+  # This method removes and returns the first node in the Linked List
+  # and must set Linked List's head to the second node.
   def remove_front
+    self.head = head.next ? head.next : nil
+    head
   end
 end

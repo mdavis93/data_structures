@@ -29,7 +29,7 @@ RSpec.describe SeparateChaining, type: Class do
   end
 
   describe "#hash[key] = value" do
-    it "does not resize the array when a collision occurs and the values match" do
+    it "does not resize the array when a collision occurs and the keys match" do
       hash = SeparateChaining.new(4)
       hash["key"] = "value"
       expect(hash.size).to eq 4

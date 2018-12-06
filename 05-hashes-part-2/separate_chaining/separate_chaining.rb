@@ -1,10 +1,11 @@
 require_relative 'linked_list'
 
 class SeparateChaining
-  attr_reader :max_load_factor
+  attr_reader :max_load_factor, :count
 
   def initialize(size)
     @max_load_factor = 0.7
+    @count = 0
     @items = Array.new(size) { LinkedList.new }
   end
 
@@ -51,14 +52,6 @@ class SeparateChaining
     @items.length
   end
 
-  def count_elements
-    count = 0
-    each(true) do |e|
-      count += 1 unless e.nil?
-    end
-    count
-  end
-
   # Resize the hash
   def resize
     temp = @items
@@ -72,9 +65,6 @@ class SeparateChaining
       end
     end
     @items
-  rescue StandardError => e
-    puts e.message
-    puts e.backtrace.inspect
   end
 
   def print
@@ -83,6 +73,7 @@ class SeparateChaining
     Load Factor: #{load_factor}
          "
     @items.each(&:print)
+    nil
   end
 
   def each(all = false, &_)
