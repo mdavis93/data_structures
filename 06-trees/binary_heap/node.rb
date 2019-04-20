@@ -3,19 +3,13 @@ class Node
   attr_accessor :rating
   attr_accessor :left
   attr_accessor :right
+  attr_accessor :parent
 
   def initialize(title, rating)
     @title = title
     @rating = rating
     @left = nil
     @right = nil
-  end
-
-  def >(node)
-    rating > node.rating
-  end
-
-  def <(node)
-    rating < node.rating
+    @parent = nil
   end
 end
