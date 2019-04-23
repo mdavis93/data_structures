@@ -1,28 +1,34 @@
 require_relative 'node'
 
-$films = []
-$counter = 0
+class FindKevin
 
-def find_kevin_bacon(actor)
-  unless $counter > 0
-    actor.film_actor_hash.each do |title, actors|
-      actors.each do |actor|
-        if actor.name != 'Kevin Bacon'
-          $films.push(title)
-          find_kevin_bacon(actor)
-        else
-          $films.push(title)
-          if $films.length <= 6
-            puts "Degrees of Kevin Bacon: #{$films.length}"
-            $films.each do |film|
-              puts "Connected by: #{film}"
-            end
-            $counter += 1
-          else
-            puts "More than six degrees of Kevin Bacon"
-            $counter += 1
+  def initialize
+    @bacon_number = nil
+    @checked_actors = nil
+    @path_array = nil
+  end
+
+  def find_kevin_bacon(start)
+    @bacon_number = 0
+    @checked_actors = []
+    @path_array = []
+    @checked_actors.push(start)
+
+    return @path_array if start.name == 'Kevin Bacon'
+
+    until @checked_actors.empty?
+      node = @checked_actors.shift
+
+      node.film_actor_hash.each do |film, cast|
+        @path_array.push(film) unless @path_array.include?(film)
+        cast.each do |actor|
+          if actor.name != 'Kevin Bacon' && !@checked_actors.include?(actor)
+            @checked_actors.push(actor)
+          elsif actor.name == 'Kevin Bacon'
+            return @path_array
           end
         end
+
       end
     end
   end
